@@ -21,7 +21,7 @@
 // 2- quando si clicca su una bomba e finisce la partita, il software scopre tutte le bombe nascoste
 const btn = document.getElementById("btn")
 const field= document.getElementById("game")
-
+const numeriCasuali=[]
 function gioca(){
     const seleziona= document.getElementById("dif")
     const level= seleziona.value;
@@ -38,7 +38,6 @@ if(level==1){
     console.log(level)
 }
     function cell(num){
-        console.log(num)
         const cella= document.createElement("div")
         const celr=Math.sqrt(numcell)
         cella.className="cella"
@@ -46,9 +45,14 @@ if(level==1){
         cella.style.width=`calc(100% / ${celr})`;
         cella.style.height=`calc(100% / ${celr})`;
         cella.addEventListener("click",function colore(){
-            this.className="azzurro cella"
-            console.log(this.innerText)
             this.removeEventListener("click",colore)
+            if(numeriCasuali.includes((parseInt(this.innerText)))){
+                this.className="rosso cella"
+               
+            }else{
+                this.className="azzurro cella"
+            }
+           
         })
         return cella
     }
@@ -63,5 +67,15 @@ if(level==1){
         field.appendChild(griglia);
     }
     drawGrid();
+    function genera(){
+        while(numeriCasuali.length<16){
+         let random = Math.floor(Math.random() * numcell) + 1;
+        if(!numeriCasuali.includes(random)){
+            numeriCasuali.push(random)
+        }
+        }
+    }
+    genera();
+    console.log(numeriCasuali)
 }
 btn.addEventListener("click", gioca)
