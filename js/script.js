@@ -22,10 +22,12 @@
 const btn = document.getElementById("btn")
 const field= document.getElementById("game")
 const numeriCasuali=[]
+const numBomb=16
 function gioca(){
     const seleziona= document.getElementById("dif")
     const level= seleziona.value;
     let numcell;
+    let score=0
 console.log("inizio gioco....")
 if(level==1){
     numcell=100
@@ -47,15 +49,21 @@ if(level==1){
         cella.addEventListener("click",function colore(){
             this.removeEventListener("click",colore)
             if(numeriCasuali.includes((parseInt(this.innerText)))){
-                this.className="rosso cella"
-               
+                this.style.backgroundColor="red"
+               gameOver();
             }else{
                 this.className="azzurro cella"
+                score++
+                console.log(score)
+                if(score==max_volte){
+                    gameOver()
+                }
             }
-           
+          
         })
         return cella
     }
+    const max_volte=numcell-numBomb;
     function drawGrid(){
         const griglia = document.createElement("div")
         griglia.className="griglia"
@@ -68,7 +76,7 @@ if(level==1){
     }
     drawGrid();
     function genera(){
-        while(numeriCasuali.length<16){
+        while(numeriCasuali.length<numBomb){
          let random = Math.floor(Math.random() * numcell) + 1;
         if(!numeriCasuali.includes(random)){
             numeriCasuali.push(random)
@@ -77,5 +85,8 @@ if(level==1){
     }
     genera();
     console.log(numeriCasuali)
+    function gameOver(){
+        console.log("gameOver")
+    }
 }
 btn.addEventListener("click", gioca)
