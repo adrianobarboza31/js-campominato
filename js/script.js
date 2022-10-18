@@ -46,22 +46,23 @@ if(level==1){
         cella.innerHTML=`<span>${num}</span>`
         cella.style.width=`calc(100% / ${celr})`;
         cella.style.height=`calc(100% / ${celr})`;
-        cella.addEventListener("click",function colore(){
-            this.removeEventListener("click",colore)
-            if(numeriCasuali.includes((parseInt(this.innerText)))){
-                this.style.backgroundColor="red"
-               gameOver();
-            }else{
-                this.className="azzurro cella"
-                score++
-                console.log(score)
-                if(score==max_volte){
-                    gameOver()
-                }
-            }
-          
-        })
+        cella.addEventListener("click",colore)
         return cella
+    }
+    function colore(){
+        this.removeEventListener("click",colore)
+        if(numeriCasuali.includes((parseInt(this.innerText)))){
+            this.style.backgroundColor="red"
+           gameOver();
+        }else{
+            this.className="azzurro cella"
+            score++
+            console.log(score)
+            if(score==max_volte){
+                gameOver()
+            }
+        }
+      
     }
     const max_volte=numcell-numBomb;
     function drawGrid(){
@@ -86,7 +87,23 @@ if(level==1){
     genera();
     console.log(numeriCasuali)
     function gameOver(){
+        const squares= document.getElementsByClassName("cella")
+        console.log(squares)
+        for(let i=0; i <squares.length;i++){
+        squares[i].removeEventListener("click",colore)
+        let numm=i+1
+        if(numeriCasuali.includes(numm)){
+            squares[i].classList.add("rosso")
+        }
+        }
         console.log("gameOver")
+        if(score===max_volte){
+            console.log(score)
+            document.getElementById("score").innerHTML="il tuo punteggio è"+ score
+        }else{
+            console.log(score)
+            document.getElementById("score").innerHTML="il tuo punteggio è"+ score
+        }
     }
 }
 btn.addEventListener("click", gioca)
