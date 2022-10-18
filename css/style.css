@@ -1,0 +1,34 @@
+body{
+    height: 100vh;
+}
+header{
+    height: 10vh;
+    background-color:rgb(6, 40, 61) ;
+}
+main{
+    height: 85vh;
+    
+    background-color: rgb(37, 109, 133);
+}
+footer{
+    height: 5vh;
+    background-color:rgb(6, 40, 61) ;
+}
+.griglia{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 500px;
+    height: 500px;
+    background-color:rgb(71, 181, 255) ;
+}
+.cella{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid black;
+}
+.azzurro{
+    background-color: blue;
+}
